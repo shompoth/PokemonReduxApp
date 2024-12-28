@@ -1,6 +1,7 @@
 import { StyleSheet, TouchableOpacity, View, Image, Text } from "react-native";
 import { Link } from "expo-router";
 import { getPokemonArtwork, getPokemonIdDisplay } from "../utils/pokemon";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 type Props = {
   name: string;
@@ -21,6 +22,13 @@ export const PokemonCard = ({ name, id }: Props) => {
           <Text style={styles.idText}>
             {getPokemonIdDisplay(id.toString())}
           </Text>
+          <TouchableOpacity
+            style={styles.icon}
+            onPress={() => console.warn("Liked")}
+          >
+            <FontAwesome name="heart-o" size={24} color="#6B7280" />
+            <FontAwesome name="heart" size={24} color="red" />
+          </TouchableOpacity>
           <Image
             source={{
               uri: getPokemonArtwork(id),
@@ -59,9 +67,15 @@ const styles = StyleSheet.create({
   idText: {
     position: "absolute",
     top: 8,
-    right: 8,
+    left: 8,
+    fontSize: 12,
     fontWeight: "bold",
     color: "#6B7280",
+  },
+  icon: {
+    position: "absolute",
+    right: 8,
+    top: 8,
   },
   image: {
     width: "80%",

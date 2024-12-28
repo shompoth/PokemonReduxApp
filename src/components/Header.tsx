@@ -1,6 +1,10 @@
 import { View, Image, Text, StyleSheet } from "react-native";
 
-export const Header = () => {
+type Props = {
+  name: string;
+};
+
+export const Header = ({ name }: Props) => {
   return (
     <View style={styles.container}>
       <Image
@@ -8,7 +12,7 @@ export const Header = () => {
         style={styles.image}
         resizeMode="contain"
       />
-      <Text style={styles.text}>Pokédex</Text>
+      <Text style={styles.text}>{name}</Text>
     </View>
   );
 };

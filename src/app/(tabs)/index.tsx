@@ -2,6 +2,7 @@ import { View, FlatList } from "react-native";
 import { useEffect, useState } from "react";
 import { Header } from "../../components/Header";
 import { PokemonCard } from "../../components/PokemonCard";
+import { getPokemonId } from "../../utils/pokemon";
 
 interface PokemonListItem {
   name: string;
@@ -16,7 +17,7 @@ interface PokemonList {
 }
 
 export default function HomeScreen() {
-  const [pokemonState, setPokemonState] = useState<PokemonListItem[]>([]); // On spécifie le type ici
+  const [pokemonState, setPokemonState] = useState<PokemonListItem[]>([]);
   const fetchPokemons = async () => {
     try {
       const response = await fetch(
@@ -33,11 +34,9 @@ export default function HomeScreen() {
     fetchPokemons();
   }, []);
 
-  console.log("pokemonState", pokemonState);
-
   return (
     <View style={{ flex: 1 }}>
-      <Header />
+      <Header name="Pokedex" />
       <FlatList
         style={{ flex: 1 }}
         data={pokemonState}
@@ -46,8 +45,8 @@ export default function HomeScreen() {
         contentContainerStyle={{
           paddingHorizontal: 8,
         }}
-        renderItem={({ item, index }) => (
-          <PokemonCard name={item.name} id={index + 1} />
+        renderItem={({ item }) => (
+          <PokemonCard name={item.name} id={getPokemonId(item.url)} />
         )}
         keyExtractor={(item) => item.name.toString()}
       />
