@@ -12,6 +12,7 @@ import { PokemonBasic } from "../../store/services/pokemonApi";
 
 type HomeListProps = {
   data: PokemonBasic[] | undefined;
+  isFetching: boolean;
   isLoading: boolean;
   isError: boolean;
   onRetry?: () => void;
@@ -20,6 +21,7 @@ type HomeListProps = {
 
 export const HomePokemonList = ({
   data,
+  isFetching,
   isLoading,
   isError,
   onRetry,
@@ -49,13 +51,18 @@ export const HomePokemonList = ({
       style={{ flex: 1 }}
       data={data}
       numColumns={2}
-      columnWrapperStyle={{ justifyContent: "center" }}
       contentContainerStyle={{
         paddingHorizontal: 8,
       }}
       renderItem={({ item }) => (
         <PokemonCard name={item.name} id={getPokemonId(item.url)} />
       )}
+      ListFooterComponent={
+        <>
+          {isFetching && <ActivityIndicator />}
+          <View style={{ paddingBottom: 2 }} />
+        </>
+      }
       keyExtractor={(item) => item.name.toString()}
       onEndReached={onEndReached}
     />

@@ -13,7 +13,6 @@ export default function FavoritesScreen() {
         style={{ flex: 1 }}
         data={favoriteIds}
         numColumns={2}
-        columnWrapperStyle={{ justifyContent: "center" }}
         contentContainerStyle={{
           paddingHorizontal: 8,
         }}
