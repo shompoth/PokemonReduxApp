@@ -2,6 +2,8 @@ import { StyleSheet, TouchableOpacity, View, Image, Text } from "react-native";
 import { Link } from "expo-router";
 import { getPokemonArtwork, getPokemonIdDisplay } from "../utils/pokemon";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { toggleFavorite } from "../store/slices/favoritesSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 
 type Props = {
   name: string;
@@ -9,6 +11,11 @@ type Props = {
 };
 
 export const PokemonCard = ({ name, id }: Props) => {
+  const dispatch = useAppDispatch();
+  const isFavorite = useAppSelector((state) =>
+    state.favorites.favoriteIds.includes(id)
+  );
+
   return (
     <Link
       href={{
@@ -24,10 +31,15 @@ export const PokemonCard = ({ name, id }: Props) => {
           </Text>
           <TouchableOpacity
             style={styles.icon}
-            onPress={() => console.warn("Liked")}
+            onPress={(e) => {
+              dispatch(toggleFavorite(id));
+            }}
           >
-            <FontAwesome name="heart-o" size={24} color="#6B7280" />
-            <FontAwesome name="heart" size={24} color="red" />
+            {isFavorite ? (
+              <FontAwesome name="heart" size={24} color="red" />
+            ) : (
+              <FontAwesome name="heart-o" size={24} color="#6B7280" />
+            )}
           </TouchableOpacity>
           <Image
             source={{
