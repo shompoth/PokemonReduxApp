@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   text: {
+    fontSize: 18,
     fontWeight: "bold",
   },
 });

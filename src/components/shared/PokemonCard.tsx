@@ -1,4 +1,11 @@
-import { StyleSheet, TouchableOpacity, View, Image, Text } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Image,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import { Link } from "expo-router";
 import { getPokemonArtwork, getPokemonIdDisplay } from "../../utils/pokemon";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
@@ -8,9 +15,10 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 type Props = {
   name: string;
   id: number;
+  isLoading?: boolean;
 };
 
-export const PokemonCard = ({ name, id }: Props) => {
+export const PokemonCard = ({ name, id, isLoading = false }: Props) => {
   const dispatch = useAppDispatch();
   const isFavorite = useAppSelector((state) =>
     state.favorites.favoriteIds.includes(id)
@@ -26,29 +34,35 @@ export const PokemonCard = ({ name, id }: Props) => {
     >
       <TouchableOpacity style={styles.container}>
         <View style={styles.card}>
-          <Text style={styles.idText}>
-            {getPokemonIdDisplay(id.toString())}
-          </Text>
-          <TouchableOpacity
-            style={styles.icon}
-            onPress={(e) => {
-              dispatch(toggleFavorite(id));
-            }}
-          >
-            {isFavorite ? (
-              <FontAwesome name="heart" size={24} color="red" />
-            ) : (
-              <FontAwesome name="heart-o" size={24} color="#6B7280" />
-            )}
-          </TouchableOpacity>
-          <Image
-            source={{
-              uri: getPokemonArtwork(id),
-            }}
-            style={styles.image}
-            resizeMode="contain"
-          />
-          <Text style={styles.name}>{name}</Text>
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <>
+              <Text style={styles.idText}>
+                {getPokemonIdDisplay(id.toString())}
+              </Text>
+              <TouchableOpacity
+                style={styles.icon}
+                onPress={(e) => {
+                  dispatch(toggleFavorite(id));
+                }}
+              >
+                {isFavorite ? (
+                  <FontAwesome name="heart" size={24} color="red" />
+                ) : (
+                  <FontAwesome name="heart-o" size={24} color="#6B7280" />
+                )}
+              </TouchableOpacity>
+              <Image
+                source={{
+                  uri: getPokemonArtwork(id),
+                }}
+                style={styles.image}
+                resizeMode="contain"
+              />
+              <Text style={styles.name}>{name}</Text>
+            </>
+          )}
         </View>
       </TouchableOpacity>
     </Link>

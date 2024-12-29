@@ -6,7 +6,8 @@ import { HomePokemonList } from "../../components/home/HomePokemonList";
 
 export default function HomeScreen() {
   const [page, setPage] = useState(1);
-  const { data, isLoading, isError, refetch } = useGetPokemonListQuery(page);
+  const { data, isFetching, isLoading, isError, refetch } =
+    useGetPokemonListQuery(page);
 
   const loadMore = () => {
     if (data?.next) {
@@ -19,6 +20,7 @@ export default function HomeScreen() {
       <Header name="Pokedex" />
       <HomePokemonList
         data={data?.results}
+        isFetching={isFetching}
         isLoading={isLoading}
         isError={isError}
         onEndReached={loadMore}
