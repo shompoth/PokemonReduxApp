@@ -1,9 +1,9 @@
 import { StyleSheet, TouchableOpacity, View, Image, Text } from "react-native";
 import { Link } from "expo-router";
-import { getPokemonArtwork, getPokemonIdDisplay } from "../utils/pokemon";
+import { getPokemonArtwork, getPokemonIdDisplay } from "../../utils/pokemon";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { toggleFavorite } from "../store/slices/favoritesSlice";
-import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { toggleFavorite } from "../../store/slices/favoritesSlice";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 
 type Props = {
   name: string;

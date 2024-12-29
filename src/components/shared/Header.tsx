@@ -8,7 +8,7 @@ export const Header = ({ name }: Props) => {
   return (
     <View style={styles.container}>
       <Image
-        source={require("../../assets/pokemon-logo.png")}
+        source={require("../../../assets/pokemon-logo.png")}
         style={styles.image}
         resizeMode="contain"
       />

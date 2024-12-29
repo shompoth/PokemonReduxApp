@@ -1,7 +1,7 @@
 import { View, FlatList } from "react-native";
-import { Header } from "../../components/Header";
+import { Header } from "../../components/shared/Header";
 import { useAppSelector } from "../../store/hooks";
-import { FavoritePokemonCard } from "../../components/FavoritePokemonCard";
+import { FavoritePokemonCard } from "../../components/favorites/FavoritePokemonCard";
 
 export default function FavoritesScreen() {
   const favoriteIds = useAppSelector((state) => state.favorites.favoriteIds);
