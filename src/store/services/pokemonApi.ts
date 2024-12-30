@@ -1,30 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
-interface PokemonBasic {
-  name: string;
-  url: string;
-}
-
-interface TransformedPokemonListResponse {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: PokemonBasic[];
-  currentPage: number;
-}
-
-interface PokemonDetail {
-  id: number;
-  name: string;
-  image: string;
-  height: number;
-  weight: number;
-  types: string[];
-  stats: {
-    name: string;
-    value: number;
-  }[];
-}
+import {
+  PokemonDetail,
+  TransformedPokemonListResponse,
+} from "../../types/pokemon";
 
 export const pokemonApi = createApi({
   reducerPath: "pokemonApi",
@@ -60,14 +38,19 @@ export const pokemonApi = createApi({
         height: response.height,
         weight: response.weight,
         types: response.types.map((t: any) => t.type.name),
-        stats: response.stats.map((s: any) => ({
-          name: s.stat.name,
-          value: s.base_stat,
-        })),
+        stats: response.stats,
       }),
       keepUnusedDataFor: 300,
+    }),
+
+    getPokemonSpecies: builder.query({
+      query: (id) => `pokemon-species/${id}`,
     }),
   }),
 });
 
-export const { useGetPokemonListQuery, useGetPokemonByIdQuery } = pokemonApi;
+export const {
+  useGetPokemonListQuery,
+  useGetPokemonByIdQuery,
+  useGetPokemonSpeciesQuery,
+} = pokemonApi;
