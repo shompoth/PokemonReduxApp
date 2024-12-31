@@ -35,7 +35,7 @@ export default function PokemonDetailScreen() {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
         <Header name={pokemon?.name} id={id} />
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View>
             <ImageSection types={pokemon?.types} id={id} />
             <AboutSection pokemon={pokemon} bio={bio} />
