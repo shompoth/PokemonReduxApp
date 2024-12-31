@@ -8,13 +8,14 @@ import {
 } from "react-native";
 import { PokemonCard } from "../shared/PokemonCard";
 import { getPokemonId } from "../../utils/pokemon";
-import { PokemonBasic } from "../../store/services/pokemonApi";
+import { PokemonBase } from "../../types/pokemon";
 
 type HomeListProps = {
-  data: PokemonBasic[] | undefined;
+  data: PokemonBase[] | undefined;
   isFetching: boolean;
   isLoading: boolean;
   isError: boolean;
+  search: string;
   onRetry?: () => void;
   onEndReached?: () => void;
 };
@@ -24,9 +25,14 @@ export const HomePokemonList = ({
   isFetching,
   isLoading,
   isError,
+  search,
   onRetry,
   onEndReached,
 }: HomeListProps) => {
+  const filteredPokemons = search
+    ? data?.filter((p) => p.name.toLowerCase().includes(search.toLowerCase()))
+    : data;
+
   if (isLoading) {
     return (
       <View style={styles.centerContainer}>
@@ -49,7 +55,7 @@ export const HomePokemonList = ({
   return (
     <FlatList
       style={{ flex: 1 }}
-      data={data}
+      data={filteredPokemons}
       numColumns={2}
       contentContainerStyle={{
         paddingHorizontal: 8,

@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import {
   PokemonDetail,
+  RawPokemonDetail,
   TransformedPokemonListResponse,
+  TypeDetail,
 } from "../../types/pokemon";
 
 export const pokemonApi = createApi({
@@ -31,13 +33,13 @@ export const pokemonApi = createApi({
 
     getPokemonById: builder.query<PokemonDetail, number>({
       query: (id) => `pokemon/${id}`,
-      transformResponse: (response: any) => ({
+      transformResponse: (response: RawPokemonDetail) => ({
         id: response.id,
         name: response.name,
         image: response.sprites.front_default,
         height: response.height,
         weight: response.weight,
-        types: response.types.map((t: any) => t.type.name),
+        types: response.types.map((type: TypeDetail) => type.type.name),
         stats: response.stats,
       }),
       keepUnusedDataFor: 300,
