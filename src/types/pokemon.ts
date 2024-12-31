@@ -1,4 +1,4 @@
-interface PokemonBase {
+export interface PokemonBase {
   name: string;
   url: string;
 }
@@ -27,4 +27,22 @@ export interface TransformedPokemonListResponse {
   previous: string | null;
   results: PokemonBase[];
   currentPage: number;
+}
+
+export interface RawPokemonDetail {
+  id: number;
+  name: string;
+  sprites: {
+    front_default: string;
+  };
+  height: number;
+  weight: number;
+  types: TypeDetail[];
+  stats: StatDetail[];
+}
+
+export interface TypeDetail {
+  type: {
+    name: string;
+  };
 }
