@@ -58,13 +58,13 @@ const styles = StyleSheet.create({
     borderRightColor: "#d1d5db",
   },
   label: {
-    width: 50,
+    width: 60,
     fontSize: 14,
     textAlign: "right",
     paddingRight: 8,
   },
   value: {
-    width: 40,
+    width: 50,
     fontSize: 14,
     textAlign: "right",
     paddingRight: 8,
